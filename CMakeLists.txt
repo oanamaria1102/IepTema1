@@ -1,0 +1,21 @@
+# CMake version
+cmake_minimum_required(VERSION 3.0)
+
+# Project name
+project(Tema1)
+
+# Specify the required C++ standard
+if(CMAKE_VERSION GREATER "3.16.3") 
+    set(CMAKE_CXX_STANDARD 14)
+    set(CMAKE_CXX_STANDARD_REQUIRED ON)
+    set(CMAKE_CXX_EXTENSIONS OFF)
+else()
+    if(CMAKE_COMPILER_IS_GNUCXX)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
+    endif()    
+endif()    
+
+# Define the executable
+add_executable(${PROJECT_NAME}
+               Tema1.cpp)
+
