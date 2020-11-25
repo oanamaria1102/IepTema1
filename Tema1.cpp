@@ -26,6 +26,21 @@ public:
     
     ~Caine(){}
     
+   Caine& operator=(const Caine& caine)
+    {
+    	if(&caine!=this)
+    	{
+    	    this->id=caine.id;
+    	    this->rasa=caine.rasa;
+    	    this->data_nastere=caine.data_nastere;
+    	    this->sexul=caine.sexul;
+    	    this->diagnostic=caine.diagnostic;
+    	    this->greutate=caine.greutate;
+    	}
+    	
+    	return *this;
+    }
+    
     int get_id() 
     {
         return id;
@@ -68,7 +83,7 @@ class CainePete : public Caine {
 
     string culoarePete;
     CainePete(const CainePete&);
-    CainePete& operator=(const CainePete&);
+    //CainePete& operator=(const CainePete&);
 public:
     CainePete(){}
 
@@ -81,7 +96,18 @@ public:
     {
         cout << "Destructor caine pete\n";
     }
-
+    
+    CainePete& operator=(const CainePete& caine_pete)
+    {
+    	if(&caine_pete!=this)
+    	{
+    	    Caine::operator=(caine_pete);
+    	    this->culoarePete=caine_pete.culoarePete;
+    	}
+    	
+    	return *this;
+    }
+    
     string get_culoare_pete()
     {
         return culoarePete;
@@ -93,7 +119,7 @@ class CaineFaraPete : public Caine{
 
     string talie;//mica,medie,mare
     CaineFaraPete(const CaineFaraPete&);
-    CaineFaraPete& operator=(const CaineFaraPete&);
+    //CaineFaraPete& operator=(const CaineFaraPete&);
 public:
     CaineFaraPete(){}
     
@@ -105,7 +131,25 @@ public:
     ~CaineFaraPete()
     {  
         cout << "Destructor caine fara pete\n";
-    } 
+    }
+    
+    CaineFaraPete& operator=(const CaineFaraPete& caine_fara_pete)
+    {
+    	if(&caine_fara_pete!=this)
+    	{
+    	    Caine::operator=(caine_fara_pete);
+    	    this->talie=caine_fara_pete.talie;
+    	}
+    	
+    	return *this;
+    }
+    
+    void afisareCaineFaraPete()
+    {
+        cout << this->get_id() << " " << this->get_rasa() << " " << this->get_data_nastere()<<" "<< this->get_sexul()<<" "<<
+           this->get_diagnostic()<<" "<< this->get_greutate()<<" "<<this->talie<<"\n";
+        cout<<"\n";
+    }
 };
 
 
@@ -206,13 +250,16 @@ int main()
     CaineFaraPete c2("mica",101, "pomeranian", "2017-11-20", "feminin","bolnav", 2.50);
     CaineFaraPete c3("medie",102, "bitchon", "2016-06-23", "masculin", "bolnav", 2.50);
     
-    //CaineFaraPete c4(c3); eroare
-    //CaineFaraPete c5;
-    //c5=c3; eroare
+    CainePete c4;
+    c4=c1;
+    
+    CaineFaraPete c5;
+    c5=c3;
+    c5.afisareCaineFaraPete();
 
-    listaCaini.push_back(c1);
+    listaCaini.push_back(c4);
     listaCaini.push_back(c2);
-    listaCaini.push_back(c3);
+    listaCaini.push_back(c5);
 
     Cabinet cab(listaCaini);
     Cabinet cab1(cab);
@@ -306,4 +353,3 @@ int main()
     } while (op != 5);
     return 0;
 }
-
